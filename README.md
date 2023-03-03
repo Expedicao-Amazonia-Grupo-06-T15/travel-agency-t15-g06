@@ -1,2 +1,1 @@
-# travel-agency-t15-g06
-Projeto Final T15 - G06
+Projeto final do curso de Front-end, dos alunos: Luana, Noelle, Hanna, Mariana e Germano. O projeto é uma aplicação web confiável e atualizada, que visa fornecer informações para que o usuário possa acessar pacotes e informações de passeios, pousadas, hotéis, restaurantes, atrações em geral, entre outros, para a região da Amazônia Brasileira. As principais tecnologias do Front-end utilizadas são: React, Typescript, bem como fundamentos de HTML, CSS e Javascript. Também utilizamos metodologia Ágil e o Notion para gerenciamento/controle das tarefas,além de bibliotecas externas, como MUI e Styled Component, para a criação da aplicação. 
