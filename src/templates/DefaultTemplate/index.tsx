@@ -6,7 +6,7 @@ interface DefaultTemplateProps {
   children: React.ReactNode;
 }
 
-const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
+export const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
   return (
     <>
       <Header />
@@ -19,5 +19,3 @@ const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
     </>
   );
 };
-
-export default DefaultTemplate;

@@ -1,15 +1,14 @@
-import React from 'react';
 import { Route, Routes } from 'react-router';
-import LandingPage from '../pages/LandingPage';
-import ExplorePage from '../pages/ExplorePage';
-import RegisterPage from '../pages/RegisterPage';
-import LoginPage from '../pages/LoginPage';
-import Dashboard from '../pages/Dashboard';
-import Blog from '../pages/Blog';
-import AboutPage from '../pages/About';
-import ErrorPage from '../pages/404Page';
+import { LandingPage } from '../pages/LandingPage';
+import { ExplorePage } from '../pages/ExplorePage';
+import { RegisterPage } from '../pages/RegisterPage';
+import { LoginPage } from '../pages/LoginPage';
+import { Dashboard } from '../pages/Dashboard';
+import { Blog } from '../pages/Blog';
+import { AboutPage } from '../pages/About';
+import { ErrorPage } from '../pages/404Page';
 
-const AppRoutes = () => (
+export const AppRoutes = () => (
   <Routes>
     <Route path='/' element={<LandingPage />} />
     <Route path='/explore' element={<ExplorePage />} />
@@ -21,5 +20,3 @@ const AppRoutes = () => (
     <Route path='*' element={<ErrorPage />} />
   </Routes>
 );
-
-export default AppRoutes;
