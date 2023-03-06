@@ -1,4 +1,4 @@
-const AboutPage = () => {
+export const AboutPage = () => {
   return (
     <div>
       <h3>Contate-nos</h3>
@@ -7,5 +7,3 @@ const AboutPage = () => {
     </div>
   );
 };
-
-export default AboutPage;
