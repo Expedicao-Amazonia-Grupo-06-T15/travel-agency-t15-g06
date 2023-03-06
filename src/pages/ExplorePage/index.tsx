@@ -1,6 +1,5 @@
-import { FormControl, InputLabel, Menu, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { AxiosResponse } from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
 interface IHotel {
