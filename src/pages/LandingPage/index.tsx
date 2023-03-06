@@ -1,7 +1,5 @@
-import React from 'react';
-
 const LandingPage = () => {
-  return <div>Travels</div>;
+  return <div>Home - LandingPage</div>;
 };
 
 export default LandingPage;
