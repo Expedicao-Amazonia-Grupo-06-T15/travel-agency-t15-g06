@@ -1,20 +1,18 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
-import { StyledInput } from './style';
+import { StyledTextField } from './style';
 
 interface iInputProps {
   label: string;
   type: 'text' | 'email' | 'password';
   register: UseFormRegisterReturn<string>;
   error?: FieldError;
-  id: string;
 }
 
-export const Input = ({ label, type, register, error, id }: iInputProps) => (
+export const Input = ({ label, type, register, error }: iInputProps) => (
   <>
-    <StyledInput>
-      <label htmlFor={id}>{label}</label>
-      <input type={type} {...register} id={id} />
+    <fieldset>
+      <StyledTextField label={label} type={type} {...register} />
       {error ? <p>{error.message}</p> : null}
-    </StyledInput>
+    </fieldset>
   </>
 );

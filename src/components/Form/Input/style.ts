@@ -1,8 +1,4 @@
+import { TextField } from '@mui/material';
 import styled from 'styled-components';
 
-export const StyledInput = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
+export const StyledTextField = styled(TextField)``;

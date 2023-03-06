@@ -40,21 +40,18 @@ const RegisterForm = () => {
       <Input
         label='Nome'
         type='text'
-        id='name'
         register={register('name')}
         error={errors.name}
       />
       <Input
         label='Email'
         type='email'
-        id='email'
         register={register('email')}
         error={errors.email}
       />
       <Input
         label='Senha'
         type='password'
-        id='password'
         register={register('password')}
         error={errors.password}
       />
