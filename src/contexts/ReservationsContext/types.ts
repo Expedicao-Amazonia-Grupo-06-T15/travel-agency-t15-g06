@@ -7,6 +7,7 @@ export interface IReservationsContext {
   hotels: IHotel[] | null;
   activityType: string;
   activityTypeChange: (e: SelectChangeEvent) => void;
+  activities: IActivity[] | null;
 }
 
 export interface IReservationsContextProps {
@@ -21,4 +22,14 @@ export interface IHotel {
   price: number;
   reviews: number | null;
   rooms: number;
+}
+
+export interface IActivity {
+  id: number;
+  name: string;
+  price: number;
+  type: string;
+  img: string;
+  reviews: null | number;
+  description: string;
 }

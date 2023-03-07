@@ -1,13 +1,14 @@
+import { ActivitiesSection } from '../../components/ActivitiesSection';
 import { Filter } from '../../components/Filter';
 
 const ExplorePage = () => {
 
   return (
-    <main>
+    <>
       <div>Imagem das folhas aqui</div>
       <Filter/>
-      
-    </main>
+      <ActivitiesSection/>
+    </>
   );
 };
 
