@@ -1,6 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 export const Filter = () => {
   const { selectedHotel, handleHotelChange, hotels, activityType, activityTypeChange } =
@@ -41,8 +43,13 @@ export const Filter = () => {
             value={activityType}
             onChange={activityTypeChange}
             defaultValue=''
-          ></Select>
+          >
+            <MenuItem value='terrena'>Terrena</MenuItem>
+            <MenuItem value='aquatica'>Aquática</MenuItem>
+          </Select>
         </FormControl>
+
+        
       </div>
 
       <div>
