@@ -22,6 +22,7 @@ export interface IHotel {
   price: number;
   reviews: number | null;
   rooms: number;
+  description: string;
 }
 
 export interface IActivity {

@@ -1,5 +1,6 @@
 import { ActivitiesSection } from '../../components/ActivitiesSection';
 import { Filter } from '../../components/Filter';
+import { HotelsSection } from '../../components/HotelsSection';
 
 const ExplorePage = () => {
 
@@ -8,6 +9,7 @@ const ExplorePage = () => {
       <div>Imagem das folhas aqui</div>
       <Filter/>
       <ActivitiesSection/>
+      <HotelsSection/>
     </>
   );
 };
