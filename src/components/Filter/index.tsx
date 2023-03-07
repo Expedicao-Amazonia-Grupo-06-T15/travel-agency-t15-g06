@@ -3,10 +3,25 @@ import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { DateRangePicker } from 'rsuite';
+import 'rsuite/dist/rsuite.css';
+
 
 export const Filter = () => {
   const { selectedHotel, handleHotelChange, hotels, activityType, activityTypeChange } =
     useContext(ReservationsContext);
+  
+    const {beforeToday} = DateRangePicker;
+
+  const selectionRange = {
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+  };
+
+  const handleDateChange = (dates) => {
+    console.log(dates)
+  }
 
   return (
     <form>
@@ -49,9 +64,8 @@ export const Filter = () => {
           </Select>
         </FormControl>
 
-        
       </div>
-
+        <DateRangePicker disabledDate={beforeToday()} onChange={handleDateChange} placeholder='Selecione uma data' />
       <div>
         <button>Buscar</button>
       </div>
