@@ -44,9 +44,9 @@ export const SelectItem = ({
                 {item.name}
               </MenuItem>
             ))
-          : null}
+        : null}
 
-        {types ? types.map(type => <MenuItem key={type.id} value={type.name}>{type.name}</MenuItem>) :  null}
+        {types ? types.map(type => <MenuItem key={type.id} value={type.name}>{type.name.charAt(0).toUpperCase() + type.name.slice(1)}</MenuItem>) :  null}
       </Select>
     </StyledFormControl>
   );

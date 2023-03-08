@@ -1,14 +1,13 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { SelectItem } from '../SelectItem';
 
-interface IDates {
+export interface IDates {
   startDate: Date;
   endDate: Date;
   toLocaleDateString: () => string;
@@ -30,10 +29,25 @@ export const Filter = () => {
     console.log(startDate, endDate);
   };
 
-  const { register } = useForm();
+  const activitiesTypesArray = [
+    {
+      id: 1,
+      name: 'terrena'
+    },
+    {
+      id: 2,
+      name: 'aquatica'
+    }
+  ];
+
+  const submit = (data: any) => {
+    console.log(data);
+  };
+
+  const { register, handleSubmit, control } = useForm();
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(submit)}>
       <div>
         <SelectItem
           selectLabel='Selecionar Hotel'
@@ -44,55 +58,28 @@ export const Filter = () => {
           onChange={handleHotelChange}
         />
 
-        <FormControl fullWidth>
-          <InputLabel id='activityType'>Tipo de passeio</InputLabel>
+        <SelectItem 
+          onChange={activityTypeChange}
+          selectId='activityType'
+          selectLabel='Tipo de passeio'
+          value={activityType}
+          types={activitiesTypesArray}
+          register={register('activityType')}
+        />
 
-          <Select
-            labelId='activityType'
-            id='activityType'
-            label='Tipo de passeio'
-            value={activityType}
-            onChange={activityTypeChange}
-            defaultValue=''
-          >
-            <MenuItem value='terrena'>Terrena</MenuItem>
-            <MenuItem value='aquatica'>Aquática</MenuItem>
-          </Select>
-        </FormControl>
       </div>
-      <DateRangePicker
-        disabledDate={beforeToday()}
-        onChange={handleDateChange}
-        placeholder='Selecione uma data'
-      />
+
+      <Controller
+            name="dates"
+            control={control}
+            render={({ field }) => (
+              <DateRangePicker {...field} />
+            )}
+          />
+
       <div>
-        <button>Buscar</button>
+        <button type='submit'>Buscar</button>
       </div>
     </form>
   );
 };
-
-{
-  /* 
-<FormControl fullWidth>
-
-          <InputLabel id='selectHotel'>Selecionar Hotel</InputLabel>
-          <Select
-            labelId='selectHotel'
-            label='Selecionar Hotel'
-            id='selectHotel'
-            value={selectedHotel}
-            onChange={handleHotelChange}
-            defaultValue=''
-          >
-            {hotels
-              ? hotels.map((hotel) => (
-                  <MenuItem value={hotel.name} key={hotel.id}>
-                    {hotel.name}
-                  </MenuItem>
-                ))
-              : null}
-          </Select>
-        </FormControl>
-*/
-}

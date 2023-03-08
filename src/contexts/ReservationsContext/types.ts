@@ -8,6 +8,7 @@ export interface IReservationsContext {
   activityType: string;
   activityTypeChange: (e: SelectChangeEvent) => void;
   activities: IActivity[] | null;
+  isLoading: boolean;
 }
 
 export interface IReservationsContextProps {

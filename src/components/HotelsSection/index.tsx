@@ -4,7 +4,7 @@ import { ItemCard } from '../ItemCard';
 
 export const HotelsSection = () => {
 
-  const {hotels} = useContext(ReservationsContext);
+  const {hotels, isLoading} = useContext(ReservationsContext);
 
   return (
     <section>
@@ -12,9 +12,9 @@ export const HotelsSection = () => {
       <p>
         Nossas acomodações integram modernidade e conforto em meio a natureza.
       </p>
-      <ul>
+      {!isLoading ? <ul>
         {hotels ? hotels.map(hotel => <ItemCard key={hotel.id} name={hotel.name} img={hotel.img} description={hotel.description} id={hotel.id} price={hotel.price}/>) : null}
-      </ul>
+      </ul> : <p>Carregando...</p>}
     </section>
   );
 };

@@ -8,8 +8,8 @@ const ExplorePage = () => {
     <>
       <div>Imagem das folhas aqui</div>
       <Filter/>
-      <ActivitiesSection/>
       <HotelsSection/>
+      <ActivitiesSection/>
     </>
   );
 };

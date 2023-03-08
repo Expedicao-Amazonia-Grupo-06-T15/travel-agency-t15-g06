@@ -9,6 +9,7 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
   const [selectedHotel, setSelectedHotel] = useState('');
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [activityType, setActivityType] = useState('');
 
@@ -26,6 +27,8 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
       setHotels(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -52,7 +55,8 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
       hotels,
       activityType,
       activityTypeChange,
-      activities
+      activities,
+      isLoading
     }}>
       {children}
     </ReservationsContext.Provider>
