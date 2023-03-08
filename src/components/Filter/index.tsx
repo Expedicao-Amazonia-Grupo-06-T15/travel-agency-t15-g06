@@ -6,6 +6,7 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
 import { useForm } from 'react-hook-form';
+import { SelectItem } from '../SelectItem';
 
 interface IDates {
   startDate: Date;
@@ -14,15 +15,19 @@ interface IDates {
 }
 
 export const Filter = () => {
-  const { selectedHotel, handleHotelChange, hotels, activityType, activityTypeChange } =
-  useContext(ReservationsContext);
-  
-  const {beforeToday} = DateRangePicker;
+  const {
+    selectedHotel,
+    handleHotelChange,
+    hotels,
+    activityType,
+    activityTypeChange,
+  } = useContext(ReservationsContext);
+
+  const { beforeToday } = DateRangePicker;
 
   const handleDateChange = (dates: IDates[]) => {
-    const [startDate, endDate] = dates.map(date => date.toLocaleDateString());
+    const [startDate, endDate] = dates.map((date) => date.toLocaleDateString());
     console.log(startDate, endDate);
-    
   };
 
   const { register } = useForm();
@@ -30,9 +35,47 @@ export const Filter = () => {
   return (
     <form>
       <div>
+        <SelectItem
+          selectLabel='Selecionar Hotel'
+          array={hotels}
+          selectId='selectHotel'
+          value={selectedHotel}
+          register={register('selectHotel')}
+          onChange={handleHotelChange}
+        />
+
         <FormControl fullWidth>
-          {' '}
-          {/* Filtro aqui  */}
+          <InputLabel id='activityType'>Tipo de passeio</InputLabel>
+
+          <Select
+            labelId='activityType'
+            id='activityType'
+            label='Tipo de passeio'
+            value={activityType}
+            onChange={activityTypeChange}
+            defaultValue=''
+          >
+            <MenuItem value='terrena'>Terrena</MenuItem>
+            <MenuItem value='aquatica'>Aquática</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      <DateRangePicker
+        disabledDate={beforeToday()}
+        onChange={handleDateChange}
+        placeholder='Selecione uma data'
+      />
+      <div>
+        <button>Buscar</button>
+      </div>
+    </form>
+  );
+};
+
+{
+  /* 
+<FormControl fullWidth>
+
           <InputLabel id='selectHotel'>Selecionar Hotel</InputLabel>
           <Select
             labelId='selectHotel'
@@ -51,28 +94,5 @@ export const Filter = () => {
               : null}
           </Select>
         </FormControl>
-
-        <FormControl fullWidth>
-          <InputLabel id='activityType'>Tipo de passeio</InputLabel>
-
-          <Select
-            labelId='activityType'
-            id='activityType'
-            label='Tipo de passeio'
-            value={activityType}
-            onChange={activityTypeChange}
-            defaultValue=''
-          >
-            <MenuItem value='terrena'>Terrena</MenuItem>
-            <MenuItem value='aquatica'>Aquática</MenuItem>
-          </Select>
-        </FormControl>
-
-      </div>
-        <DateRangePicker disabledDate={beforeToday()} onChange={handleDateChange} placeholder='Selecione uma data' />
-      <div>
-        <button>Buscar</button>
-      </div>
-    </form>
-  );
-};
+*/
+}
