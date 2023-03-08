@@ -5,23 +5,27 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
+import { useForm } from 'react-hook-form';
 
+interface IDates {
+  startDate: Date;
+  endDate: Date;
+  toLocaleDateString: () => string;
+}
 
 export const Filter = () => {
   const { selectedHotel, handleHotelChange, hotels, activityType, activityTypeChange } =
-    useContext(ReservationsContext);
+  useContext(ReservationsContext);
   
-    const {beforeToday} = DateRangePicker;
+  const {beforeToday} = DateRangePicker;
 
-  const selectionRange = {
-    startDate: new Date(),
-    endDate: new Date(),
-    key: 'selection',
+  const handleDateChange = (dates: IDates[]) => {
+    const [startDate, endDate] = dates.map(date => date.toLocaleDateString());
+    console.log(startDate, endDate);
+    
   };
 
-  const handleDateChange = (dates) => {
-    console.log(dates)
-  }
+  const { register } = useForm();
 
   return (
     <form>
