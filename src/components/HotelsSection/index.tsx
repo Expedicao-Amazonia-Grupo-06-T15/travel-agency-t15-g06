@@ -13,7 +13,7 @@ export const HotelsSection = () => {
         Nossas acomodações integram modernidade e conforto em meio a natureza.
       </p>
       {!isLoading ? <ul>
-        {hotels ? hotels.map(hotel => <ItemCard key={hotel.id} name={hotel.name} img={hotel.img} description={hotel.description} id={hotel.id} price={hotel.price}/>) : null}
+        {hotels ? hotels.map(hotel => <ItemCard key={hotel.id} name={hotel.name} img={hotel.img} description={hotel.description} id={hotel.id} price={hotel.price} reviews={hotel.reviews}/>) : null}
       </ul> : <p>Carregando...</p>}
     </section>
   );

@@ -25,7 +25,7 @@ export interface IHotel {
   img: string;
   name: string;
   price: number;
-  reviews: number | null;
+  reviews: number;
   rooms: number;
   description: string;
 }
