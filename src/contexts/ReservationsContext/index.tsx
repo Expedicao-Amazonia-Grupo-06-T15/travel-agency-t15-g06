@@ -28,7 +28,7 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -48,6 +48,10 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
     getAllActivities();
   }, []);
 
+  // const checkHotelAvailability = () => {
+
+  // };
+
   return (
     <ReservationsContext.Provider value={{
       selectedHotel,
@@ -56,7 +60,10 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
       activityType,
       activityTypeChange,
       activities,
-      isLoading
+      isLoading,
+      setHotels,
+      getAllHotels
+
     }}>
       {children}
     </ReservationsContext.Provider>

@@ -9,6 +9,8 @@ export interface IReservationsContext {
   activityTypeChange: (e: SelectChangeEvent) => void;
   activities: IActivity[] | null;
   isLoading: boolean;
+  setHotels: React.Dispatch<React.SetStateAction<IHotel[] | null>>;
+  getAllHotels: () => Promise<void>;
 }
 
 export interface IReservationsContextProps {
