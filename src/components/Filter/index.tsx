@@ -11,11 +11,9 @@ export const Filter = () => {
   const {
     selectedHotel,
     handleHotelChange,
-    hotels,
     activityType,
     activityTypeChange,
     setHotels,
-    getAllHotels,
     submit,
     hotelOptions
   } = useContext(ReservationsContext);
@@ -35,13 +33,12 @@ export const Filter = () => {
 
   const { register, handleSubmit, control } = useForm<IFilter>();
 
-  const dataPickerChange = (data: DateRange | null) => { // corrigir type
+  const dataPickerChange = (data: [Date, Date] | null) => { // corrigir type
     setDates(data);
-    console.log(data);
+    // console.log(data);
 
     if(data === null){
-      getAllHotels();
-      console.log('ficou null');
+      setHotels(hotelOptions);
     };
   };
 
@@ -72,7 +69,7 @@ export const Filter = () => {
             name="dates"
             control={control}
             render={({ field }) => (
-              <DateRangePicker {...field}/> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
+              <DateRangePicker {...field} onChange={(e) => console.log(e) }/> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
             )}
       />
 

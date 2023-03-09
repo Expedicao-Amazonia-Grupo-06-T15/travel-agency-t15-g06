@@ -87,11 +87,11 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
 
       const selectedHotelInfos:IHotel[] | undefined = hotelOptions?.filter(hotel => hotel.name == selectHotel);
 
-      const formatedDates = dates.map(date => date.toLocaleDateString());
-
+      
       if(dates && (selectHotel === ''  || selectHotel === 'allHotels')){
         console.log('primeiro if');
-
+        
+        const formatedDates = dates.map(date => date.toLocaleDateString());
         const unavailableHotelsById = reservedHotels.data.map(reservation => {
 
           const reservedDates = Object.values(reservation.dates);
@@ -117,6 +117,8 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
         setHotels(hotelOptions);
       } else {
         console.log('quarto if');
+        const formatedDates = dates.map(date => date.toLocaleDateString());
+
         
         const isHotelReservedOnSelectedDate = reservedHotels.data.find(reservation => {
           const {startDate, endDate} = reservation.dates;

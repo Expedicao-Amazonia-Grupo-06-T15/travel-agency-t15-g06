@@ -44,7 +44,7 @@ export interface IActivity {
 export interface IFilter {
   selectHotel: string;
   activityType: string;
-  dates: Date[];
+  dates: [Date, Date];
 }
 
 export interface IReservetions {
@@ -52,9 +52,4 @@ export interface IReservetions {
   userId: number;
   hotelId: number;
   dates: IDates;
-}
-
-export interface IDates {
-  startDate: string;
-  endDate: string;
 }
