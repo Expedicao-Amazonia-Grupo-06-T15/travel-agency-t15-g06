@@ -1,7 +1,5 @@
 import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
 import { Controller, useForm } from 'react-hook-form';
