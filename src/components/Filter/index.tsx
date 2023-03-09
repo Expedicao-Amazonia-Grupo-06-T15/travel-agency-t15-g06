@@ -16,7 +16,8 @@ export const Filter = () => {
     activityTypeChange,
     setHotels,
     getAllHotels,
-    submit
+    submit,
+    hotelOptions
   } = useContext(ReservationsContext);
 
   const activitiesTypesArray = [
@@ -49,7 +50,7 @@ export const Filter = () => {
       <div>
         <SelectItem
           selectLabel='Selecionar Hotel'
-          array={hotels}
+          array={hotelOptions}
           selectId='selectHotel'
           value={selectedHotel}
           register={register('selectHotel')}

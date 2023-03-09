@@ -7,18 +7,22 @@ import { IActivity, IFilter, IHotel, IReservationsContext, IReservationsContextP
 export const ReservationsContext = createContext<IReservationsContext>({} as IReservationsContext);
 
 export const ReservationsProvider = ({children}: IReservationsContextProps) => {
-  const [selectedHotel, setSelectedHotel] = useState('');
+  const [selectedHotel, setSelectedHotel] = useState<IHotel[] | string>('');
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [reservedHotels, setReservedHotels] = useState<IReservetions[] | null>(null);
   const [activityType, setActivityType] = useState('');
+  const [hotelOptions, setHotelOptions] = useState<IHotel[] | null>(null);
 
   const activityTypeChange = (e: SelectChangeEvent): void => {
     setActivityType(e.target.value);
   };
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
+    if(e.target.value === 'allHotels'){
+      setSelectedHotel(hotelOptions); // ver esse erro de type
+    }
     setSelectedHotel(e.target.value);
   };
 
@@ -26,6 +30,7 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
     try {
       const response = await api.get<IHotel[]>('hotels');
       setHotels(response.data);
+      setHotelOptions(response.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -33,7 +38,8 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
     }
   };
 
-  const getAllActivities = async  () => {
+
+  const getAllActivities = async () => {
     try {
       const response = await api.get<IActivity[]>('/activities');
       setActivities(response.data);
@@ -62,6 +68,7 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
   };
 
   const submit: SubmitHandler<IFilter> = async (data: IFilter)  => {
+    setIsLoading(true); 
 
     const {selectHotel, activityType, dates} = data;
 
@@ -69,15 +76,21 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
 
     const token = localStorage.getItem('@TOKEN');
 
-    if(dates && selectHotel === ''){
-      try {
-        const reservedHotels = await api.get<IReservetions[]>('/reservedHotels', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+    try {
+      const reservedHotels = await api.get<IReservetions[]>('/reservedHotels', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-        const formatedDates = dates.map(date => date.toLocaleDateString());
+      setReservedHotels(reservedHotels.data);
+
+      const selectedHotelInfos:IHotel[] | undefined = hotelOptions?.filter(hotel => hotel.name == selectHotel);
+
+      const formatedDates = dates.map(date => date.toLocaleDateString());
+
+      if(dates && (selectHotel === ''  || selectHotel === 'allHotels')){
+        console.log('primeiro if');
 
         const unavailableHotelsById = reservedHotels.data.map(reservation => {
 
@@ -89,14 +102,52 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
         });
 
         if(unavailableHotelsById.length > 0){
-          const filteredHotels = hotels?.filter(hotel => !unavailableHotelsById.includes(hotel.id));
+          const filteredHotels = hotelOptions?.filter(hotel => !unavailableHotelsById.includes(hotel.id));
           setHotels([...filteredHotels]); //  ver esse erro depois;
         }
+      } else if (!dates && (selectHotel !== '' && selectHotel !== 'allHotels')){
+        console.log('segundo if');
+  
+        if(selectedHotelInfos){
+          setHotels(selectedHotelInfos);
+        };
+        
+      } else if (selectHotel === 'allHotels'){
+        console.log('terceiro if');
+        setHotels(hotelOptions);
+      } else {
+        console.log('quarto if');
+        
+        const isHotelReservedOnSelectedDate = reservedHotels.data.find(reservation => {
+          const {startDate, endDate} = reservation.dates;
 
-      } catch (error) {
-        console.log(error);
+          if(selectedHotelInfos){
+            if(reservation.id === selectedHotelInfos[0].id && reservedHotelsByDate(formatedDates[0], formatedDates[1], startDate, endDate)){
+              return reservation;
+            } 
+
+          };
+
+        });
+
+        if(isHotelReservedOnSelectedDate){
+          // renderizar aviso de que o hotel esta ocupado
+        } else {
+          if(selectedHotelInfos){
+            setHotels(selectedHotelInfos);
+
+          }
+        }
+
       }
+      
+    } catch (error){
+      console.log(error);
+
+    }finally {
+      setIsLoading(false);
     }
+
 
   };
 
@@ -111,7 +162,8 @@ export const ReservationsProvider = ({children}: IReservationsContextProps) => {
       isLoading,
       setHotels,
       getAllHotels,
-      submit
+      submit,
+      hotelOptions
 
     }}>
       {children}

@@ -33,11 +33,13 @@ export const SelectItem = ({
       <Select
         labelId={selectId}
         value={value}
-        defaultValue=''
+        defaultValue={array ? 'allHotels' : ''}
         label={selectLabel}
         {...register}
         onChange={onChange}
       >
+        {array && <MenuItem value='allHotels'>Todos os hoteis</MenuItem>}
+
         {array
           ? array.map((item) => (
               <MenuItem key={item.id} value={item.name}>
@@ -45,6 +47,7 @@ export const SelectItem = ({
               </MenuItem>
             ))
         : null}
+
 
         {types ? types.map(type => <MenuItem key={type.id} value={type.name}>{type.name.charAt(0).toUpperCase() + type.name.slice(1)}</MenuItem>) :  null}
       </Select>

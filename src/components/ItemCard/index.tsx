@@ -11,7 +11,6 @@ interface IItemCardProps{
 }
 
 export const ItemCard = ({ name, img, id, description, price, reviews }: IItemCardProps) => {
-  // colocar reviews, ver com as meninas sobre
 
   const handleClick = (): void => {
     console.log(id);
