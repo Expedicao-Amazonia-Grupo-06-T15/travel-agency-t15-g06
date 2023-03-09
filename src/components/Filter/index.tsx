@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { SyntheticEvent, useCallback, useContext, useState } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
 import { Controller, useForm } from 'react-hook-form';
 import { SelectItem } from '../SelectItem';
 import { IFilter } from '../../contexts/ReservationsContext/types';
+import { DateRange } from 'rsuite/esm/DateRangePicker';
 
 export const Filter = () => {
   const {
@@ -29,9 +30,12 @@ export const Filter = () => {
     }
   ];
 
+  const [dates, setDates] = useState<DateRange | null>(null);
+
   const { register, handleSubmit, control } = useForm<IFilter>();
 
-  const dataPickerChange = (data: any) => { // corrigir type
+  const dataPickerChange = (data: DateRange | null) => { // corrigir type
+    setDates(data);
     console.log(data);
 
     if(data === null){
@@ -67,9 +71,11 @@ export const Filter = () => {
             name="dates"
             control={control}
             render={({ field }) => (
-              <DateRangePicker {...field} /> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
+              <DateRangePicker {...field}/> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
             )}
       />
+
+      
 
       <div>
         <button type='submit'>Buscar</button>
