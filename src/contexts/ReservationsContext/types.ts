@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material';
 import { ReactNode } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 export interface IReservationsContext {
   selectedHotel: string;
@@ -11,6 +12,7 @@ export interface IReservationsContext {
   isLoading: boolean;
   setHotels: React.Dispatch<React.SetStateAction<IHotel[] | null>>;
   getAllHotels: () => Promise<void>;
+  submit: SubmitHandler<IFilter>;
 }
 
 export interface IReservationsContextProps {
@@ -36,4 +38,22 @@ export interface IActivity {
   img: string;
   reviews: null | number;
   description: string;
+}
+
+export interface IFilter {
+  selectHotel: string;
+  activityType: string;
+  dates: Date[];
+}
+
+export interface IReservetions {
+  id: number;
+  userId: number;
+  hotelId: number;
+  dates: IDates;
+}
+
+export interface IDates {
+  startDate: string;
+  endDate: string;
 }
