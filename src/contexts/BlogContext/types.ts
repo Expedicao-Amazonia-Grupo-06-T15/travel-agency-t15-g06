@@ -5,6 +5,8 @@ export interface iDefaultProviderProps {
 export interface iBlogContext {
   getAllPosts: () => Promise<void>;
   blogPosts: iBlogPost[];
+  getPostById: (idPost: string) => Promise<void>;
+  blogPost: iBlogPost | null;
 }
 
 export interface iBlogPost {
@@ -12,7 +14,7 @@ export interface iBlogPost {
   authorImg: string;
   content: string;
   date: string;
-  id: number;
+  id: string;
   img: string;
   reading_time: string;
   title: string;
