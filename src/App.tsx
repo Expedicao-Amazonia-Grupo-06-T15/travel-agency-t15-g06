@@ -2,7 +2,7 @@ import { ReservationsProvider } from './contexts/ReservationsContext';
 import AppRoutes from './routes/routes';
 import DefaultTemplate from './templates/DefaultTemplate';
 
-const App = () => {
+export const App = () => {
   return (
     <div className='App'>
       <DefaultTemplate>
@@ -13,5 +13,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;

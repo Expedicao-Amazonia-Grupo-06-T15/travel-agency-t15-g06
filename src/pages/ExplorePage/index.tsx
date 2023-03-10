@@ -2,7 +2,7 @@ import { ActivitiesSection } from '../../components/ActivitiesSection';
 import { Filter } from '../../components/Filter';
 import { HotelsSection } from '../../components/HotelsSection';
 
-const ExplorePage = () => {
+export const ExplorePage = () => {
 
   return (
     <>
@@ -13,5 +13,3 @@ const ExplorePage = () => {
     </>
   );
 };
-
-export default ExplorePage;
