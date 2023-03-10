@@ -35,7 +35,7 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
         });
         const { email, id, name } = response.data;
         setUser({ email, id, name });
-        navigate(`/dashboard/${userId}`);
+        navigate('/dashboard');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log(error);
@@ -52,7 +52,7 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
         formData
       );
       console.log('Cadastro realizado com sucesso');
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data === 'Email already exists') {
@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
       localStorage.setItem('@USERID', userId);
       setUser(response.data.user);
       console.log('Login realizado com');
-      navigate(`/dashboard/${userId}`);
+      navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data === 'Cannot find user') {
