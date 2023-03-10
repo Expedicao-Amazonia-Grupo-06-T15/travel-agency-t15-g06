@@ -1,12 +1,16 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BlogContext } from '../../contexts/BlogContext';
 
 export const Blog = () => {
-  const { getAllPosts, blogPosts } = useContext(BlogContext);
+  const { getAllPosts, blogPosts, getPostById } = useContext(BlogContext);
 
   useEffect(() => {
     getAllPosts();
   }, []);
+
+  const openPost = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    getPostById(e.currentTarget.id);
+  };
 
   const getParagraphs = (content: string) => {
     return content
@@ -26,7 +30,7 @@ export const Blog = () => {
       <main>
         <ul>
           {blogPosts.map((post) => (
-            <li key={post.id}>
+            <li key={post.id} id={post.id} onClick={openPost}>
               <h2>{post.title}</h2>
               <img src={post.img} alt={post.title} />
               {getParagraphs(post.content)}

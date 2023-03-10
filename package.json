@@ -25,15 +25,9 @@
     "react-hook-form": "^7.43.4",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.8.2",
-<<<<<<< Updated upstream
     "rsuite": "^5.28.2",
     "styled-components": "^5.3.8",
     "yup": "^1.0.2"
-=======
-    "styled-components": "^5.3.8",
-    "yup": "^1.0.2",
-    "rsuite": "^5.28.1"
->>>>>>> Stashed changes
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
