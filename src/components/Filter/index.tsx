@@ -15,31 +15,77 @@ export const Filter = () => {
     activityTypeChange,
     setHotels,
     submit,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    hotelOptions,
+=======
     hotelOptions
+>>>>>>> Stashed changes
+=======
+    hotelOptions,
+>>>>>>> Stashed changes
   } = useContext(ReservationsContext);
 
   const activitiesTypesArray = [
     {
       id: 1,
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+      name: 'terrena',
+    },
+    {
+      id: 2,
+      name: 'aquatica',
+    },
+=======
       name: 'terrena'
     },
     {
       id: 2,
       name: 'aquatica'
     }
+>>>>>>> Stashed changes
+=======
+      name: 'terrena',
+    },
+    {
+      id: 2,
+      name: 'aquatica',
+    },
+>>>>>>> Stashed changes
   ];
 
   const [dates, setDates] = useState<DateRange | null>(null);
 
   const { register, handleSubmit, control } = useForm<IFilter>();
 
-  const dataPickerChange = (data: [Date, Date] | null) => { // corrigir type
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+  const dataPickerChange = (data: [Date, Date] | null) => {
+    // corrigir type
     setDates(data);
     // console.log(data);
 
-    if(data === null){
+    if (data === null) {
       setHotels(hotelOptions);
+    }
+=======
+  const dataPickerChange = (data: [Date, Date] | null) => { // corrigir type
+=======
+  const dataPickerChange = (data: [Date, Date] | null) => {
+    // corrigir type
+>>>>>>> Stashed changes
+    setDates(data);
+    // console.log(data);
+
+    if (data === null) {
+      setHotels(hotelOptions);
+<<<<<<< Updated upstream
     };
+>>>>>>> Stashed changes
+=======
+    }
+>>>>>>> Stashed changes
   };
 
   return (
@@ -54,7 +100,15 @@ export const Filter = () => {
           onChange={handleHotelChange}
         />
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        <SelectItem
+=======
         <SelectItem 
+>>>>>>> Stashed changes
+=======
+        <SelectItem
+>>>>>>> Stashed changes
           onChange={activityTypeChange}
           selectId='activityType'
           selectLabel='Tipo de passeio'
@@ -62,19 +116,38 @@ export const Filter = () => {
           types={activitiesTypesArray}
           register={register('activityType')}
         />
-
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
       </div>
 
       <Controller
-            name="dates"
-            control={control}
-            render={({ field }) => (
-              <DateRangePicker {...field} onChange={(e) => console.log(e) }/> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
-            )}
+        name='dates'
+        control={control}
+        render={({ field }) => (
+          <DateRangePicker {...field} onChange={(e) => console.log(e)} /> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
+        )}
       />
 
+=======
+
+=======
+>>>>>>> Stashed changes
+      </div>
+
+      <Controller
+        name='dates'
+        control={control}
+        render={({ field }) => (
+          <DateRangePicker {...field} onChange={(e) => console.log(e)} /> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
+        )}
+      />
+
+<<<<<<< Updated upstream
       
 
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       <div>
         <button type='submit'>Buscar</button>
       </div>
