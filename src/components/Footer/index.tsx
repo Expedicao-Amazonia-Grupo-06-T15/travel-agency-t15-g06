@@ -8,7 +8,7 @@ interface IFooter {
   tiktokLink: string;
 }
 
-const Footer: React.FC<IFooter> = ({
+export const Footer: React.FC<IFooter> = ({
   instagramLink,
   youtubeLink,
   tiktokLink,
@@ -46,5 +46,3 @@ const Footer: React.FC<IFooter> = ({
     </footer>
   );
 };
-
-export default Footer;

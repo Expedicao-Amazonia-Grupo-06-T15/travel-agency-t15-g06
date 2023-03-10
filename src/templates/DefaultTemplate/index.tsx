@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 
 interface DefaultTemplateProps {
   children: React.ReactNode;
 }
 
-const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
+export const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
   return (
     <>
       <Header />
@@ -19,5 +19,3 @@ const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
     </>
   );
 };
-
-export default DefaultTemplate;
