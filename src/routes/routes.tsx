@@ -9,6 +9,7 @@ import { AboutPage } from '../pages/About';
 import { ErrorPage } from '../pages/404Page';
 import { ProtectedRoutes } from './protectedRoutes';
 import { UserProvider } from '../contexts/UserContext';
+import { BlogProvider } from '../contexts/BlogContext';
 
 export const AppRoutes = () => (
   <Routes>
@@ -27,7 +28,14 @@ export const AppRoutes = () => (
         }
       />
     </Route>
-    <Route path='/blog' element={<Blog />} />
+    <Route
+      path='/blog'
+      element={
+        <BlogProvider>
+          <Blog />
+        </BlogProvider>
+      }
+    />
     <Route path='/about' element={<AboutPage />} />
     <Route path='*' element={<ErrorPage />} />
   </Routes>
