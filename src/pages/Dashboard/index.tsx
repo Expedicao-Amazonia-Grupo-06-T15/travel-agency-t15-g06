@@ -26,12 +26,8 @@ export const Dashboard = () => {
 
       <section>
         <p>Hotel selecionado</p>
-        <UserDashboard selectedHotel={selectedHotel} />
+        <UserDashboard />
       </section>
-
-      {/* <section>
-        <p>Passeio selecionado</p>
-      </section> */}
     </>
   );
 };
