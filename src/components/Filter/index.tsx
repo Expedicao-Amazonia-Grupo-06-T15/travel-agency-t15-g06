@@ -15,31 +15,32 @@ export const Filter = () => {
     activityTypeChange,
     setHotels,
     submit,
-    hotelOptions
+    hotelOptions,
   } = useContext(ReservationsContext);
 
   const activitiesTypesArray = [
     {
       id: 1,
-      name: 'terrena'
+      name: 'terrena',
     },
     {
       id: 2,
-      name: 'aquatica'
-    }
+      name: 'aquatica',
+    },
   ];
 
   const [dates, setDates] = useState<DateRange | null>(null);
 
   const { register, handleSubmit, control } = useForm<IFilter>();
 
-  const dataPickerChange = (data: [Date, Date] | null) => { // corrigir type
+  const dataPickerChange = (data: [Date, Date] | null) => {
+    // corrigir type
     setDates(data);
     // console.log(data);
 
-    if(data === null){
+    if (data === null) {
       setHotels(hotelOptions);
-    };
+    }
   };
 
   return (
@@ -54,7 +55,7 @@ export const Filter = () => {
           onChange={handleHotelChange}
         />
 
-        <SelectItem 
+        <SelectItem
           onChange={activityTypeChange}
           selectId='activityType'
           selectLabel='Tipo de passeio'
@@ -62,18 +63,15 @@ export const Filter = () => {
           types={activitiesTypesArray}
           register={register('activityType')}
         />
-
       </div>
 
       <Controller
-            name="dates"
-            control={control}
-            render={({ field }) => (
-              <DateRangePicker {...field} onChange={(e) => console.log(e) }/> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
-            )}
+        name='dates'
+        control={control}
+        render={({ field }) => (
+          <DateRangePicker {...field} onChange={(e) => console.log(e)} /> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
+        )}
       />
-
-      
 
       <div>
         <button type='submit'>Buscar</button>
