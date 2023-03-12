@@ -2,7 +2,7 @@ import { SyntheticEvent, useCallback, useContext, useState } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { SelectItem } from '../SelectItem';
 import { IFilter } from '../../contexts/ReservationsContext/types';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
@@ -10,11 +10,11 @@ export const Filter = () => {
   const {
     selectedHotel,
     handleHotelChange,
-    activityType,
+    selectedActivityType,
     activityTypeChange,
-    setHotels,
     submit,
     hotelOptions,
+    setDates,
   } = useContext(ReservationsContext);
   const activitiesTypesArray = [
     {
@@ -26,17 +26,8 @@ export const Filter = () => {
       name: 'aquatica',
     },
   ];
-  const [dates, setDates] = useState<DateRange | null>(null);
-  const { register, handleSubmit, control } = useForm<IFilter>();
+  const { register, handleSubmit } = useForm<IFilter>();
 
-  const dataPickerChange = (data: [Date, Date] | null) => { // corrigir type
-    setDates(data);
-    // console.log(data);
-
-    if(data === null){
-      setHotels(hotelOptions);
-    }
-  };
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div>
@@ -44,29 +35,26 @@ export const Filter = () => {
           selectLabel='Selecionar Hotel'
           array={hotelOptions}
           selectId='selectHotel'
-          // value={selectedHotel}
+          value={selectedHotel ? selectedHotel : ''}
           register={register('selectHotel')}
           onChange={handleHotelChange}
         />
 
-        <SelectItem 
+        {/* <SelectItem
           onChange={activityTypeChange}
           selectId='activityType'
           selectLabel='Tipo de passeio'
-          value={activityType}
+          value={selectedActivityType}
           types={activitiesTypesArray}
           register={register('activityType')}
-        />
+        /> */}
       </div>
-      <Controller
-        name='dates'
-        control={control}
-        render={({ field }) => (
-          <DateRangePicker {...field} onChange={(e) => console.log(e)} /> // pq quando o onChange eh colocado, o react hook form para de funcionar pra esse componente?
-        )}
-      />
 
-      
+      <DateRangePicker
+        onChange={(e) => {
+          setDates(e);
+        }}
+      />
 
       <div>
         <button type='submit'>Buscar</button>
