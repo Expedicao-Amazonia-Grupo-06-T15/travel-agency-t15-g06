@@ -11,6 +11,7 @@ import {
   iUserLoad,
   iuserRegisterAndLogin,
 } from './types';
+import { toast } from 'react-toastify';
 
 export const UserContext = createContext({} as iUserContext);
 
@@ -51,14 +52,14 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
         '/users',
         formData
       );
-      console.log('Cadastro realizado com sucesso');
+      toast.success('Cadastro realizado com sucesso');
       navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data === 'Email already exists') {
-          console.log('Este e-mail já existe');
+          toast.error('Este e-mail já existe');
         } else if (error.response?.data === 'Password is too short') {
-          console.log('Senha muito curta');
+          toast.warning('Senha muito curta');
         }
       }
     }
@@ -72,14 +73,14 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
       localStorage.setItem('@TOKEN', response.data.accessToken);
       localStorage.setItem('@USERID', userId);
       setUser(response.data.user);
-      console.log('Login realizado com sucesso');
+      toast.success('Login realizado com sucesso');
       navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.data === 'Cannot find user') {
-          console.log('Usuário não encontrado');
+          toast.error('Usuário não encontrado');
         } else if (error.response?.data === 'Incorrect password') {
-          console.log('Senha incorreta');
+          toast.error('Senha incorreta');
         }
       }
     } finally {
