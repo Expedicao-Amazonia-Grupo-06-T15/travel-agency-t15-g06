@@ -10,6 +10,7 @@ import { ErrorPage } from '../pages/404Page';
 import { ProtectedRoutes } from './protectedRoutes';
 import { UserProvider } from '../contexts/UserContext';
 import { BlogProvider } from '../contexts/BlogContext';
+import { BlogPost } from '../pages/BlogPost';
 
 export const AppRoutes = () => (
   <Routes>
@@ -33,6 +34,14 @@ export const AppRoutes = () => (
       element={
         <BlogProvider>
           <Blog />
+        </BlogProvider>
+      }
+    />
+    <Route
+      path='/blog/:idPost'
+      element={
+        <BlogProvider>
+          <BlogPost />
         </BlogProvider>
       }
     />

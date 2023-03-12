@@ -1,7 +1,7 @@
 import { Rating, Typography } from '@mui/material';
 import { Li } from './style';
 
-interface IItemCardProps{
+interface IItemCardProps {
   name: string;
   img: string;
   id: number;
@@ -10,8 +10,13 @@ interface IItemCardProps{
   reviews?: number;
 }
 
-export const ItemCard = ({ name, img, id, description, price, reviews }: IItemCardProps) => {
-
+export const ItemCard = ({
+  name,
+  img,
+  description,
+  price,
+  reviews,
+}: IItemCardProps) => {
   const handleClick = (): void => {
     console.log(id);
     // usar o Id aqui para abrir pagina e renderizar infos da atividade
@@ -24,11 +29,12 @@ export const ItemCard = ({ name, img, id, description, price, reviews }: IItemCa
         <h6>{name}</h6>
         <p>{description}</p>
         <p>R$ {price}/noite</p>
-        {reviews ? 
+        {reviews ? (
           <>
-            <Typography component="legend">Reviews</Typography>
-            <Rating name='reviews' value={reviews} precision={0.5} readOnly/>
-          </> : null}
+            <Typography component='legend'>Reviews</Typography>
+            <Rating name='reviews' value={reviews} precision={0.5} readOnly />
+          </>
+        ) : null}
       </div>
     </Li>
   );
