@@ -28,7 +28,7 @@ export const ReservationsProvider = ({
   const [reservedHotels, setReservedHotels] = useState<IReservetions[] | null>(
     null
   );
-  // const [selectedActivityType, setSelectedActivityType] = useState<string>('');
+  const [selectedActivityType, setSelectedActivityType] = useState<string>('');
   const [hotelOptions, setHotelOptions] = useState<IHotel[] | null>(null);
   const [dates, setDates] = useState(new Date());
 
@@ -38,15 +38,20 @@ export const ReservationsProvider = ({
     console.log(selectedHotel);
   }, [selectedHotel]);
 
-  const activityTypeChange = (e: SelectChangeEvent): void => {
-    setSelectedActivityType(e.target.value);
-  };
+  // const activityTypeChange = (e: SelectChangeEvent): void => {
+  //   setSelectedActivityType(e.target.value);
+  // };
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
-      setSelectedHotel(hotelOptions); // ver esse erro de type
+      setSelectedHotel(null);
+    } else {
+      const selectedHotel = hotelOptions?.find(
+        (hotel) => hotel.name === e.target.value
+      );
+      // console.log('selectedHotel:', selectedHotel);
+      setSelectedHotel(selectedHotel || null);
     }
-    setSelectedHotel(e.target.value);
   };
 
   const getAllHotels = async (): Promise<void> => {
@@ -219,6 +224,7 @@ export const ReservationsProvider = ({
         selectedHotel,
         handleHotelChange,
         hotels,
+        selectedActivityType,
         activities,
         isLoading,
         setHotels,

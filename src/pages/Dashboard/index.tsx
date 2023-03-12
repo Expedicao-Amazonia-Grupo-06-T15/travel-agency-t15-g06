@@ -26,7 +26,7 @@ export const Dashboard = () => {
 
       <section>
         <p>Hotel selecionado</p>
-        <UserDashboard />
+        <UserDashboard selectedHotel={selectedHotel} />
       </section>
 
       {/* <section>
