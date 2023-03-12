@@ -72,7 +72,7 @@ export const UserProvider = ({ children }: iDefaultProviderProps) => {
       localStorage.setItem('@TOKEN', response.data.accessToken);
       localStorage.setItem('@USERID', userId);
       setUser(response.data.user);
-      console.log('Login realizado com');
+      console.log('Login realizado com sucesso');
       navigate('/dashboard');
     } catch (error) {
       if (axios.isAxiosError(error)) {

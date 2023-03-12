@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
 export interface IReservationsContext {
-  selectedHotel: string | IHotel[];
+  selectedHotel: IHotel | null;
   handleHotelChange: (e: SelectChangeEvent) => void;
   hotels: IHotel[] | null;
-  activityType: string;
+  selectedActivityType: string;
   activityTypeChange: (e: SelectChangeEvent) => void;
   activities: IActivity[] | null;
   isLoading: boolean;
@@ -14,6 +14,8 @@ export interface IReservationsContext {
   getAllHotels: () => Promise<void>;
   submit: SubmitHandler<IFilter>;
   hotelOptions: IHotel[] | null;
+  setDates: React.Dispatch<React.SetStateAction<Date>>;
+  confirmHotelReservation: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface IReservationsContextProps {
@@ -51,5 +53,11 @@ export interface IReservetions {
   id: number;
   userId: number;
   hotelId: number;
-  dates: IDates;
+  dates: [Date, Date];
+}
+
+export interface IAddReservation {
+  id: number;
+  userId: number;
+  hotelId: number;
 }
