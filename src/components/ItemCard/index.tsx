@@ -1,5 +1,13 @@
 import { Rating, Typography } from '@mui/material';
-import { Li } from './style';
+import {
+  CardsInfos,
+  Description,
+  Li,
+  LiImageContainer,
+  Price,
+  ReviewsContainer,
+} from './style';
+import plusIcons from '../../assets/images/plus.svg';
 
 interface IItemCardProps {
   name: string;
@@ -8,6 +16,8 @@ interface IItemCardProps {
   description: string;
   price?: number;
   reviews?: number;
+  showFacilities?: boolean;
+  showPrice?: boolean;
 }
 
 export const ItemCard = ({
@@ -16,26 +26,30 @@ export const ItemCard = ({
   description,
   price,
   reviews,
+  showFacilities = false,
+  showPrice = false,
 }: IItemCardProps) => {
   const handleClick = (): void => {
     console.log(id);
-    // usar o Id aqui para abrir pagina e renderizar infos da atividade
   };
 
   return (
     <Li onClick={handleClick}>
-      <img src={img} alt={name} />
-      <div>
+      <LiImageContainer>
+        <img src={img} alt={name} />
+      </LiImageContainer>
+      <CardsInfos>
         <h6>{name}</h6>
-        <p>{description}</p>
-        <p>R$ {price}/noite</p>
+        {showFacilities && <img src={plusIcons} alt='Facilidades' />}
+        <Description>{description}</Description>
+        {showPrice && <Price>R$ {price}/noite</Price>}
         {reviews ? (
-          <>
-            <Typography component='legend'>Reviews</Typography>
+          <ReviewsContainer>
             <Rating name='reviews' value={reviews} precision={0.5} readOnly />
-          </>
+            <Typography component='legend'>Reviews</Typography>
+          </ReviewsContainer>
         ) : null}
-      </div>
+      </CardsInfos>
     </Li>
   );
 };

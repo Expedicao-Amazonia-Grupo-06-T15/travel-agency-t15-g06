@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import tropicalBg from '../assets/images/tropical-bg.jpg';
 
 export const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -48,5 +49,30 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+a {
+  color: #2A241F;
+}
+
+:root {
+  --color-primary: #D44231;
+  --color-primary-2: #729AB8;
+  --grey-100: #2A241F;
+  --grey-50: #2A241FCC;
+  --grey-10: #00000080;
+
+  --font-title: 'Rubik', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --title-1: 3.125rem; //50px
+  --title-2: 3rem; //48px
+  --title-3: 2.5rem; //40px
+  --body-1: 1.5rem; //24px
+  --body-2: 1.25rem; //20px
+  --body-3: 1.125rem; //18px
+  --body-4: 1rem; //16px
+  --body-5: 0.875rem; //14px
+  --form-1: 2.375rem; //38px
 }
 `;

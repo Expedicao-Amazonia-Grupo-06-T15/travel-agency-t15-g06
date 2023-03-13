@@ -1,17 +1,25 @@
 import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import { ItemCard } from '../ItemCard';
+import {
+  ActivitiesList,
+  MainActivities,
+  TextSection,
+  TitleSection,
+} from './style';
 
 export const ActivitiesSection = () => {
   const { activities, isLoading, selectedActivityType } =
     useContext(ReservationsContext);
 
   return (
-    <section>
-      <h1>Passeios</h1>
-      <p>Escolha entre passeios aquáticos, jungle tours, culturais e mais!</p>
+    <MainActivities>
+      <TitleSection>Passeios</TitleSection>
+      <TextSection>
+        Escolha entre passeios aquáticos, jungle tours, culturais e mais!
+      </TextSection>
       {!isLoading ? (
-        <ul>
+        <ActivitiesList>
           {activities
             ? activities.map((activity) => (
                 <div key={`activity-${activity.id}`}>
@@ -20,14 +28,16 @@ export const ActivitiesSection = () => {
                     id={activity.id}
                     img={activity.img}
                     description={activity.description}
+                    showPrice={false}
+                    showFacilities={false}
                   />
                 </div>
               ))
             : null}{' '}
-        </ul>
+        </ActivitiesList>
       ) : (
         <p>Carregando...</p>
       )}
-    </section>
+    </MainActivities>
   );
 };
