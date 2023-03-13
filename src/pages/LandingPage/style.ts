@@ -3,7 +3,7 @@ import backgroundImage from '../../assets/images/landingpagebg.jpg';
 import backgroundGastronomy from '../../assets/images/pirarucu.jpg';
 import backgroundCulture from '../../assets/images/cultura.jpg';
 import macacos from '../../assets/images/macacos.jpg';
-import hotels from '../../assets/images/hotels.svg';
+import hotels from '../../assets/images/hotels.jpg';
 
 export const MainImgContainer = styled.div`
   background-image: url(${backgroundImage});
@@ -105,7 +105,7 @@ export const TourSectionWrapper = styled.div`
     }
   }
 
-  @media only screen and (min-width: 769px) {
+  @media (min-width: 769px) {
     display: block;
 
     margin: 104px 0px 28px 0px;
@@ -126,7 +126,7 @@ export const TourSectionWrapper = styled.div`
       margin: 55.95px 0px 93.29px 0px;
       position: relative;
 
-      ::after {
+      /* ::after {
         content: '';
         display: block;
         position: absolute;
@@ -137,7 +137,7 @@ export const TourSectionWrapper = styled.div`
         background-image: url(${macacos});
         background-size: cover;
         border-radius: 50px;
-      }
+      } */
 
       span {
         color: var(--color-primary);
@@ -245,7 +245,7 @@ export const HotelsSectionWrapper = styled.div`
     color: var(--grey-100);
   }
 
-  @media only screen and (min-width: 769px) {
+  @media (min-width: 769px) {
     display: block;
 
     margin: 104px 0px 28px 0px;
@@ -266,18 +266,18 @@ export const HotelsSectionWrapper = styled.div`
       margin: 55.95px 0px 93.29px 0px;
       position: relative;
 
-      ::after {
+      /* ::after {
         content: '';
         display: block;
         position: absolute;
-        top: 15px;
+        top: -60px;
         right: -602px;
         width: 500px;
-        height: 285.83px;
+        height: 415px;
         background-image: url(${hotels});
         background-size: cover;
         border-radius: 50px;
-      }
+      } */
 
       span {
         color: var(--color-primary);
@@ -310,6 +310,23 @@ export const OurMissionSection = styled.div`
     text-align: justify;
     justify-self: center;
     align-self: center;
+  }
+
+  @media (min-width: 769px) {
+    height: 976.79px;
+
+    h2 {
+      font-size: var(--title-2);
+      justify-self: flex-start;
+      margin-left: 266px;
+    }
+
+    p {
+      width: 66.45%;
+      font-family: var(--font-body);
+      font-size: var(--body-2);
+      margin-top: -300px;
+    }
   }
 `;
 

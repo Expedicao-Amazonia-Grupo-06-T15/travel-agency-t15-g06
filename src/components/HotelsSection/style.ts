@@ -14,6 +14,10 @@ export const TitleSection = styled.h2`
   font-weight: 500;
   font-size: var(--body-5);
   margin-bottom: 12.92px;
+
+  @media (min-width: 769px) {
+    font-size: var(--title-2);
+  }
 `;
 
 export const TextSection = styled.p`
@@ -22,6 +26,10 @@ export const TextSection = styled.p`
   font-size: 0.625rem;
   line-height: 168%;
   margin-bottom: 67px;
+
+  @media (min-width: 769px) {
+    font-size: var(--body-3);
+  }
 `;
 
 export const HotelsList = styled.ul`

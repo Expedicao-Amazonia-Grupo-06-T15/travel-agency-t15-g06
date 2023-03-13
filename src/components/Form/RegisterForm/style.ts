@@ -8,6 +8,10 @@ export const StyledForm = styled.form`
   font-family: var(--font-body);
   width: fit-content;
 
+  @media (min-width: 769px) {
+    width: 100%;
+  }
+
   button {
     color: white;
     background-color: var(--color-primary);

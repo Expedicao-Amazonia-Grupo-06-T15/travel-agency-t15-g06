@@ -6,6 +6,11 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   font-family: var(--font-title);
   font-size: var(--body-2);
+
+  @media (min-width: 769px) {
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -28,7 +33,11 @@ export const LogoContainer = styled.div`
 `;
 
 export const NavContainer = styled.nav`
-  width: 466px;
+  min-width: 466px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const UlLinksContainer = styled.ul`
@@ -38,6 +47,10 @@ export const UlLinksContainer = styled.ul`
   gap: 32px;
   width: 100%;
   display: flex;
+
+  @media (min-width: 769px) {
+    font-size: 1.125rem;
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -50,8 +63,18 @@ export const UlButtons = styled.ul`
   display: flex;
   gap: 36px;
   align-items: center;
+  font-size: 1.125rem;
+
+  button {
+    border: none;
+    outline: none;
+    background-color: var(--color-primary-2);
+    color: white;
+  }
 
   div {
+    border: none;
+    outline: none;
     background-color: var(--color-primary-2);
     height: 64px;
     display: flex;
@@ -60,9 +83,29 @@ export const UlButtons = styled.ul`
     width: 179px;
     margin-right: 71px;
     border-radius: 12px;
+    color: var(--grey-100);
 
     a {
       color: white;
     }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const DropdownMenuContainer = styled.div`
+  display: grid;
+  width: 100%;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+
+  img {
+    align-self: center;
+    justify-self: flex-end;
+    margin-right: 1.4375rem;
   }
 `;

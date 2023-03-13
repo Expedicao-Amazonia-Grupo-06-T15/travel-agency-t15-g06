@@ -73,6 +73,7 @@ a {
   --body-3: 1.125rem; //18px
   --body-4: 1rem; //16px
   --body-5: 0.875rem; //14px
+  --body-6: 0.75; //12px
   --form-1: 2.375rem; //38px
 }
 `;

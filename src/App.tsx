@@ -8,13 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 export const App = () => {
   return (
     <div className='App'>
-      <DefaultTemplate>
-        <ReservationsProvider>
-          <UserProvider>
+      <ReservationsProvider>
+        <UserProvider>
+          <DefaultTemplate>
             <AppRoutes />
-          </UserProvider>
-        </ReservationsProvider>
-      </DefaultTemplate>
+          </DefaultTemplate>
+        </UserProvider>
+      </ReservationsProvider>
       <ToastContainer position='top-center' theme='light' />
     </div>
   );

@@ -19,6 +19,7 @@ export const UserName = styled.h2`
   font-size: var(--body-2);
   font-weight: 500;
   color: var(--color-primary);
+  text-transform: capitalize;
 `;
 
 export const NavReservations = styled.nav`

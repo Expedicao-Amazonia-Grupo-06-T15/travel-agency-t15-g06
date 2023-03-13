@@ -7,4 +7,8 @@ export const BannerContainer = styled.div`
   background-size: cover;
   background-position: center;
   height: 85px;
+
+  @media (min-width: 769px) {
+    height: 246px;
+  }
 `;
