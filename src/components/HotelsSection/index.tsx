@@ -1,46 +1,56 @@
 import { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import { ItemCard } from '../ItemCard';
+import { ItemsContainer } from '../ItemCard/style';
+import {
+  AccommodationSection,
+  ConfirmationButton,
+  HotelsList,
+  TextSection,
+  TitleSection,
+} from './style';
 
 export const HotelsSection = () => {
   const { hotels, isLoading, selectedHotel, confirmHotelReservation } =
     useContext(ReservationsContext);
 
   return (
-    <section>
-      <h1>Hotéis</h1>
-      <p>
+    <AccommodationSection>
+      <TitleSection>Hotéis</TitleSection>
+      <TextSection>
         Nossas acomodações integram modernidade e conforto em meio a natureza.
-      </p>
+      </TextSection>
       {!isLoading ? (
-        <ul>
+        <HotelsList>
           {hotels
             ? hotels.map((hotel) => (
-                <div key={hotel.id}>
+                <ItemsContainer key={hotel.id}>
                   <ItemCard
                     name={hotel.name}
                     img={hotel.img}
                     description={hotel.description}
                     id={hotel.id}
                     price={hotel.price}
+                    showPrice={true}
+                    showFacilities={true}
                     reviews={hotel.reviews}
                   />
                   {selectedHotel && (
-                    <button
+                    <ConfirmationButton
                       key={`button-${hotel.id}`}
-                      id={hotel.id}
+                      id={hotel.id.toString()}
                       onClick={confirmHotelReservation}
                     >
                       Confirmar reserva
-                    </button>
+                    </ConfirmationButton>
                   )}
-                </div>
+                </ItemsContainer>
               ))
             : null}
-        </ul>
+        </HotelsList>
       ) : (
         <p>Carregando...</p>
       )}
-    </section>
+    </AccommodationSection>
   );
 };

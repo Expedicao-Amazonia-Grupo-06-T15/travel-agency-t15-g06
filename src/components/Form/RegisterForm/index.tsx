@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { iRegisterFormValues } from '../../../contexts/UserContext/types';
 import { Input } from '../Input';
+import { StyledForm } from './style';
 
 const schema = yup
   .object({
@@ -36,7 +37,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <StyledForm onSubmit={handleSubmit(submit)}>
       <Input
         label='Nome'
         type='text'
@@ -59,7 +60,7 @@ const RegisterForm = () => {
       <p>
         Já tem uma conta? <Link to='/login'>Faça login</Link>
       </p>
-    </form>
+    </StyledForm>
   );
 };
 
