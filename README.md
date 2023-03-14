@@ -2,7 +2,7 @@
 
 🍀 O projeto Travel Agency - Expedição Amazônia foi desenvolvido em React e Typescript, com o propósito de ser uma aplicação web confiável e atualizada, que visa fornecer informações para que o usuário possa acessar pacotes e informações de hotéis, pousadas, passeios, restaurantes e atrações em geral,  para a região da Amazônia Brasileira
 
-🐊 [Acesse nosso projeto:] (link vercel)
+🐊 [Acesse nosso projeto:](https://travel-agency-t15-g06.vercel.app/)
 
 
 🐊  [Acesse nosso figma:](https://www.figma.com/file/I6Q3BLMTQkZpN0ozxeyzLw/Expedi%C3%A7%C3%A3o-Amaz%C3%B4nia---Travel-Agency?node-id=0%3A1&t=oH6pwaYl0UjnskZv-0)
