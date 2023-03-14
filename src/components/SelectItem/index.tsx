@@ -2,7 +2,6 @@ import { InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { IHotel } from '../../contexts/ReservationsContext/types';
 import { StyledFormControl } from './style';
-
 interface ISelectItemProps {
   selectLabel: string;
   selectId: string;
@@ -10,14 +9,12 @@ interface ISelectItemProps {
   array?: IHotel[] | null;
   types?: ITypes[];
   register: UseFormRegisterReturn<string>;
-  onChange: (e: SelectChangeEvent<string>) => void
+  onChange: (e: SelectChangeEvent<string>) => void;
 }
-
 interface ITypes {
   id: number;
   name: string;
 }
-
 export const SelectItem = ({
   selectLabel,
   selectId,
@@ -25,7 +22,7 @@ export const SelectItem = ({
   array,
   types,
   register,
-  onChange
+  onChange,
 }: ISelectItemProps) => {
   return (
     <StyledFormControl fullWidth>
@@ -39,17 +36,20 @@ export const SelectItem = ({
         onChange={onChange}
       >
         {array && <MenuItem value='allHotels'>Todos os hoteis</MenuItem>}
-
         {array
           ? array.map((item) => (
               <MenuItem key={item.id} value={item.name}>
                 {item.name}
               </MenuItem>
             ))
-        : null}
-
-
-        {types ? types.map(type => <MenuItem key={type.id} value={type.name}>{type.name.charAt(0).toUpperCase() + type.name.slice(1)}</MenuItem>) :  null}
+          : null}
+        {types
+          ? types.map((type) => (
+              <MenuItem key={type.id} value={type.name}>
+                {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+              </MenuItem>
+            ))
+          : null}
       </Select>
     </StyledFormControl>
   );

@@ -14,15 +14,13 @@ import {
   IReservationsContextProps,
   IReservetions,
 } from './types';
-
 export const ReservationsContext = createContext<IReservationsContext>(
   {} as IReservationsContext
 );
-
 export const ReservationsProvider = ({
   children,
 }: IReservationsContextProps) => {
-  const [selectedHotel, setSelectedHotel] = useState<IHotel | string>('');
+  const [selectedHotel, setSelectedHotel] = useState<string>('');
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,24 +30,23 @@ export const ReservationsProvider = ({
   const [selectedActivityType, setSelectedActivityType] = useState<string>('');
   const [hotelOptions, setHotelOptions] = useState<IHotel[] | null>(null);
   const [dates, setDates] = useState<Date[] | null>(null);
-
+  const [selectedHotelDashboard, setSelectedHotelDashboard] = useState<
+    IHotel[] | undefined
+  >(undefined);
   const navigate = useNavigate();
-
   useEffect(() => {
     return;
   }, [selectedHotel]);
-
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
       setSelectedHotel('');
     } else {
-      const selectedHotel = hotelOptions?.find(
+      const selectedHotelFinal = hotelOptions?.find(
         (hotel) => hotel.name === e.target.value
       );
-      setSelectedHotel(selectedHotel || '');
+      setSelectedHotel(selectedHotelFinal?.name || '');
     }
   };
-
   const getAllHotels = async (): Promise<void> => {
     try {
       const response = await api.get<IHotel[]>('hotels');
@@ -61,7 +58,6 @@ export const ReservationsProvider = ({
       setIsLoading(false);
     }
   };
-
   const getAllActivities = async () => {
     try {
       const response = await api.get<IActivity[]>('/activities');
@@ -70,12 +66,10 @@ export const ReservationsProvider = ({
       console.log(error);
     }
   };
-
   useEffect(() => {
     getAllHotels();
     getAllActivities();
   }, []);
-
   const reservedHotelsByDate = (
     date1Start: string,
     date1End: string,
@@ -86,23 +80,19 @@ export const ReservationsProvider = ({
     const end1 = new Date(date1End);
     const start2 = new Date(date2Start);
     const end2 = new Date(date2End);
-
     return start1 < end2 && start2 < end1;
   };
-
   const confirmHotelReservation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ): Promise<void> => {
     const token = localStorage.getItem('@TOKEN');
     const userIdValue = localStorage.getItem('@USERID');
     const hotelIdValue = e.currentTarget.id;
-
     const data = {
       userId: userIdValue,
       hotelId: hotelIdValue,
     };
     const jsonData = JSON.stringify(data);
-
     try {
       const confirmReservation = await api.post<IAddReservation>(
         '/reservedHotels',
@@ -118,51 +108,46 @@ export const ReservationsProvider = ({
       console.log(error);
     }
   };
-
   const submit: SubmitHandler<IFilter> = async (data: IFilter) => {
     setIsLoading(true);
-
     const { selectHotel } = data;
     const objData = { selectHotel, dates };
     const token = localStorage.getItem('@TOKEN');
-
     try {
       const reservedHotels = await api.get<IReservetions[]>('/reservedHotels', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
       setReservedHotels(reservedHotels.data);
-
       const selectedHotelInfos: IHotel[] | undefined = hotelOptions?.filter(
         (hotel) => hotel.name == selectHotel
       );
-
+      setSelectedHotelDashboard(selectedHotelInfos);
       if (dates && (selectHotel === '' || selectHotel === 'allHotels')) {
         const formatedDates = dates.map((date: Date) =>
           date.toLocaleDateString()
         );
         const unavailableHotelsById = reservedHotels.data.map((reservation) => {
           const reservedDates = Object.values(reservation.dates);
-
           if (
             reservedHotelsByDate(
-              formatedDates[0],
-              formatedDates[1],
-              reservedDates[0],
-              reservedDates[1]
+              String(formatedDates[0]),
+              String(formatedDates[1]),
+              String(reservedDates[0]),
+              String(reservedDates[1])
             )
           ) {
             return reservation.hotelId;
           }
         });
-
         if (unavailableHotelsById.length > 0) {
           const filteredHotels = hotelOptions?.filter(
             (hotel) => !unavailableHotelsById.includes(hotel.id)
           );
-          setHotels([...filteredHotels]); //  ver esse erro depois;
+          if (filteredHotels) {
+            setHotels([...filteredHotels]);
+          }
         }
       } else if (!dates && selectHotel !== '' && selectHotel !== 'allHotels') {
         if (selectedHotelInfos) {
@@ -171,28 +156,26 @@ export const ReservationsProvider = ({
       } else if (selectHotel === 'allHotels') {
         setHotels(hotelOptions);
       } else {
-        const formatedDates = dates.map((date) => date.toLocaleDateString());
-
+        const formatedDates = dates?.map((date) => date.toLocaleDateString());
         const isHotelReservedOnSelectedDate = reservedHotels.data.find(
           (reservation) => {
-            const { startDate, endDate } = reservation.dates;
-
+            const [startDate, endDate] = reservation.dates;
             if (selectedHotelInfos) {
               if (
                 reservation.hotelId === selectedHotelInfos[0].id &&
-                reservedHotelsByDate(
-                  formatedDates[0],
-                  formatedDates[1],
-                  startDate,
-                  endDate
-                )
+                formatedDates
               ) {
+                reservedHotelsByDate(
+                  String(formatedDates[0]),
+                  String(formatedDates[1]),
+                  String(startDate),
+                  String(endDate)
+                );
                 return reservation;
               }
             }
           }
         );
-
         if (isHotelReservedOnSelectedDate) {
           toast.warning('Este hotel já está reservado nessas datas');
         } else {
@@ -207,7 +190,6 @@ export const ReservationsProvider = ({
       setIsLoading(false);
     }
   };
-
   return (
     <ReservationsContext.Provider
       value={{
@@ -223,6 +205,7 @@ export const ReservationsProvider = ({
         hotelOptions,
         setDates,
         confirmHotelReservation,
+        selectedHotelDashboard,
       }}
     >
       {children}

@@ -1,18 +1,16 @@
 import React, { useContext } from 'react';
 import { ReservationsContext } from '../../contexts/ReservationsContext';
 import { CardHotel, HotelInfosReserved, MainContainer } from './style';
-
 export const UserDashboard = () => {
-  const { selectedHotel } = useContext(ReservationsContext);
-
+  const { selectedHotelDashboard } = useContext(ReservationsContext);
   return (
     <MainContainer>
-      {selectedHotel ? (
+      {selectedHotelDashboard ? (
         <CardHotel>
           <div style={{ width: '128px', height: '90px', overflow: 'hidden' }}>
             <div
               style={{
-                backgroundImage: `url(${selectedHotel.img})`,
+                backgroundImage: `url(${selectedHotelDashboard[0].img})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 width: '100%',
@@ -21,8 +19,8 @@ export const UserDashboard = () => {
             />
           </div>
           <HotelInfosReserved>
-            <p>{selectedHotel.name}</p>
-            <span>R$ {selectedHotel.price}/noite</span>
+            <p>{selectedHotelDashboard[0].name}</p>
+            <span>R$ {selectedHotelDashboard[0].price}/noite</span>
           </HotelInfosReserved>
         </CardHotel>
       ) : (
