@@ -12,7 +12,7 @@ export const Filter = () => {
     selectedHotel,
     handleHotelChange,
     selectedActivityType,
-    activityTypeChange,
+    // activityTypeChange,
     submit,
     hotelOptions,
     setDates,
@@ -28,7 +28,6 @@ export const Filter = () => {
     },
   ];
   const { register, handleSubmit } = useForm<IFilter>();
-
   return (
     <FilterForm onSubmit={handleSubmit(submit)}>
       <div>
@@ -41,9 +40,7 @@ export const Filter = () => {
           onChange={handleHotelChange}
         />
       </div>
-
       <DateRangePicker
-        // menuAutoWidth={true}
         menuStyle={{
           width: '89%',
           overflow: 'auto',
@@ -53,7 +50,6 @@ export const Filter = () => {
         }}
         placeholder='Selecionar data'
       />
-
       <div>
         <button type='submit'>Buscar hospedagem</button>
       </div>
