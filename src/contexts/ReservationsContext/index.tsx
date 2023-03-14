@@ -22,7 +22,7 @@ export const ReservationsContext = createContext<IReservationsContext>(
 export const ReservationsProvider = ({
   children,
 }: IReservationsContextProps) => {
-  const [selectedHotel, setSelectedHotel] = useState<IHotel | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<IHotel | string>('');
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +31,7 @@ export const ReservationsProvider = ({
   );
   const [selectedActivityType, setSelectedActivityType] = useState<string>('');
   const [hotelOptions, setHotelOptions] = useState<IHotel[] | null>(null);
-  const [dates, setDates] = useState(new Date());
+  const [dates, setDates] = useState<Date[] | null>(null);
 
   const navigate = useNavigate();
 
@@ -41,12 +41,12 @@ export const ReservationsProvider = ({
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
-      setSelectedHotel(null);
+      setSelectedHotel('');
     } else {
       const selectedHotel = hotelOptions?.find(
         (hotel) => hotel.name === e.target.value
       );
-      setSelectedHotel(selectedHotel || null);
+      setSelectedHotel(selectedHotel || '');
     }
   };
 
@@ -92,7 +92,7 @@ export const ReservationsProvider = ({
 
   const confirmHotelReservation = async (
     e: React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  ): Promise<void> => {
     const token = localStorage.getItem('@TOKEN');
     const userIdValue = localStorage.getItem('@USERID');
     const hotelIdValue = e.currentTarget.id;
@@ -140,7 +140,9 @@ export const ReservationsProvider = ({
       );
 
       if (dates && (selectHotel === '' || selectHotel === 'allHotels')) {
-        const formatedDates = dates.map((date) => date.toLocaleDateString());
+        const formatedDates = dates.map((date: Date) =>
+          date.toLocaleDateString()
+        );
         const unavailableHotelsById = reservedHotels.data.map((reservation) => {
           const reservedDates = Object.values(reservation.dates);
 

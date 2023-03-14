@@ -43,7 +43,7 @@ export const Filter = () => {
       </div>
 
       <DateRangePicker
-        menuAutoWidth={true}
+        // menuAutoWidth={true}
         menuStyle={{
           width: '89%',
           overflow: 'auto',

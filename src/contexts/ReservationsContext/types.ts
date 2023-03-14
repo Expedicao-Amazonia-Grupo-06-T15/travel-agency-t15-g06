@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
 export interface IReservationsContext {
-  selectedHotel: IHotel | null;
+  selectedHotel: string;
   handleHotelChange: (e: SelectChangeEvent) => void;
   hotels: IHotel[] | null;
   selectedActivityType: string;
