@@ -2,6 +2,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { createContext, useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import { api } from '../../services/api';
 import {
@@ -35,12 +36,8 @@ export const ReservationsProvider = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedHotel);
+    return;
   }, [selectedHotel]);
-
-  // const activityTypeChange = (e: SelectChangeEvent): void => {
-  //   setSelectedActivityType(e.target.value);
-  // };
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
@@ -49,7 +46,6 @@ export const ReservationsProvider = ({
       const selectedHotel = hotelOptions?.find(
         (hotel) => hotel.name === e.target.value
       );
-      // console.log('selectedHotel:', selectedHotel);
       setSelectedHotel(selectedHotel || null);
     }
   };
@@ -127,9 +123,7 @@ export const ReservationsProvider = ({
     setIsLoading(true);
 
     const { selectHotel } = data;
-    console.log(data);
     const objData = { selectHotel, dates };
-    console.log(objData);
     const token = localStorage.getItem('@TOKEN');
 
     try {
@@ -146,8 +140,6 @@ export const ReservationsProvider = ({
       );
 
       if (dates && (selectHotel === '' || selectHotel === 'allHotels')) {
-        console.log('primeiro if');
-
         const formatedDates = dates.map((date) => date.toLocaleDateString());
         const unavailableHotelsById = reservedHotels.data.map((reservation) => {
           const reservedDates = Object.values(reservation.dates);
@@ -171,16 +163,12 @@ export const ReservationsProvider = ({
           setHotels([...filteredHotels]); //  ver esse erro depois;
         }
       } else if (!dates && selectHotel !== '' && selectHotel !== 'allHotels') {
-        console.log('segundo if');
-
         if (selectedHotelInfos) {
           setHotels(selectedHotelInfos);
         }
       } else if (selectHotel === 'allHotels') {
-        console.log('terceiro if');
         setHotels(hotelOptions);
       } else {
-        console.log('quarto if');
         const formatedDates = dates.map((date) => date.toLocaleDateString());
 
         const isHotelReservedOnSelectedDate = reservedHotels.data.find(
@@ -197,14 +185,14 @@ export const ReservationsProvider = ({
                   endDate
                 )
               ) {
-                console.log(reservation);
+                return reservation;
               }
             }
           }
         );
 
         if (isHotelReservedOnSelectedDate) {
-          console.log('Este hotel já está reservado nessas datas');
+          toast.warning('Este hotel já está reservado nessas datas');
         } else {
           if (selectedHotelInfos) {
             setHotels(selectedHotelInfos);

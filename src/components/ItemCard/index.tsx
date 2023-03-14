@@ -29,12 +29,8 @@ export const ItemCard = ({
   showFacilities = false,
   showPrice = false,
 }: IItemCardProps) => {
-  const handleClick = (): void => {
-    console.log(id);
-  };
-
   return (
-    <Li onClick={handleClick}>
+    <Li>
       <LiImageContainer>
         <img src={img} alt={name} />
       </LiImageContainer>
