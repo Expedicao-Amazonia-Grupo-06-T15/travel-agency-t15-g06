@@ -36,7 +36,8 @@ export const Filter = () => {
           selectLabel='Selecionar Hotel'
           array={hotelOptions}
           selectId='selectHotel'
-          value={selectedHotel ? selectedHotel : ''}
+          value={selectedHotel ? selectedHotel.name : 'Todos os Hoteis'}
+          
           register={register('selectHotel')}
           onChange={handleHotelChange}
         />

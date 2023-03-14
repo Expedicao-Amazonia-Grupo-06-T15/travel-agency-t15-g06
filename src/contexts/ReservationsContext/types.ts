@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
 export interface IReservationsContext {
-  selectedHotel: string;
+  selectedHotel: IHotel;
   handleHotelChange: (e: SelectChangeEvent) => void;
   hotels: IHotel[] | null;
   selectedActivityType: string;
@@ -46,14 +46,14 @@ export interface IActivity {
 export interface IFilter {
   selectHotel: string;
   activityType: string;
-  dates: [Date, Date];
+  dates: Date[];
 }
 
 export interface IReservetions {
   id: number;
   userId: number;
   hotelId: number;
-  dates: [Date, Date];
+  dates: Date[];
 }
 
 export interface IAddReservation {

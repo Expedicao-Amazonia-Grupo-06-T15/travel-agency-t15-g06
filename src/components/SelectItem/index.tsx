@@ -10,7 +10,7 @@ interface ISelectItemProps {
   array?: IHotel[] | null;
   types?: ITypes[];
   register: UseFormRegisterReturn<string>;
-  onChange: (e: SelectChangeEvent<string>) => void
+  onChange: (e: SelectChangeEvent<string>) => void;
 }
 
 interface ITypes {
@@ -25,7 +25,7 @@ export const SelectItem = ({
   array,
   types,
   register,
-  onChange
+  onChange,
 }: ISelectItemProps) => {
   return (
     <StyledFormControl fullWidth>
@@ -33,12 +33,11 @@ export const SelectItem = ({
       <Select
         labelId={selectId}
         value={value}
-        defaultValue={array ? 'allHotels' : ''}
         label={selectLabel}
+        // defaultValue='Todos os Hoteis'
         {...register}
         onChange={onChange}
       >
-        {array && <MenuItem value='allHotels'>Todos os hoteis</MenuItem>}
 
         {array
           ? array.map((item) => (

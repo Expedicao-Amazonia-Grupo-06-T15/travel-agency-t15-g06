@@ -22,7 +22,15 @@ export const ReservationsContext = createContext<IReservationsContext>(
 export const ReservationsProvider = ({
   children,
 }: IReservationsContextProps) => {
-  const [selectedHotel, setSelectedHotel] = useState<IHotel | string>('');
+  const allHotels = { address: '',
+  id: 0,
+  img: '',
+  name: 'Todos os Hoteis',
+  price: 0,
+  reviews: 0,
+  rooms: 0,
+  description: ''};
+  const [selectedHotel, setSelectedHotel] = useState<IHotel>(allHotels);
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,12 +49,15 @@ export const ReservationsProvider = ({
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
-      setSelectedHotel('');
+      setSelectedHotel(allHotels);
     } else {
       const selectedHotel = hotelOptions?.find(
         (hotel) => hotel.name === e.target.value
       );
-      setSelectedHotel(selectedHotel || '');
+      if(selectedHotel){
+        setSelectedHotel(selectedHotel);
+
+      };
     }
   };
 
@@ -54,7 +65,14 @@ export const ReservationsProvider = ({
     try {
       const response = await api.get<IHotel[]>('hotels');
       setHotels(response.data);
-      setHotelOptions(response.data);
+      setHotelOptions([...[{name: 'Todos os Hoteis', address: '',
+      id: 0,
+      img: '',
+      price: 0,
+      reviews: 0,
+      rooms: 0,
+      description: ''}],...response.data, ]);
+      setSelectedHotel(allHotels);
     } catch (error) {
       console.log(error);
     } finally {
@@ -125,6 +143,7 @@ export const ReservationsProvider = ({
     const { selectHotel } = data;
     const objData = { selectHotel, dates };
     const token = localStorage.getItem('@TOKEN');
+    console.log(data);
 
     try {
       const reservedHotels = await api.get<IReservetions[]>('/reservedHotels', {
@@ -139,12 +158,13 @@ export const ReservationsProvider = ({
         (hotel) => hotel.name == selectHotel
       );
 
-      if (dates && (selectHotel === '' || selectHotel === 'allHotels')) {
+      if (dates && (selectHotel === '' || selectHotel === 'Todos os Hoteis')) {
         const formatedDates = dates.map((date: Date) =>
           date.toLocaleDateString()
         );
         const unavailableHotelsById = reservedHotels.data.map((reservation) => {
-          const reservedDates = Object.values(reservation.dates);
+          const reservedDates = Object.values(reservation.dates).toString();
+          console.log(reservedDates);
 
           if (
             reservedHotelsByDate(
@@ -162,13 +182,16 @@ export const ReservationsProvider = ({
           const filteredHotels = hotelOptions?.filter(
             (hotel) => !unavailableHotelsById.includes(hotel.id)
           );
-          setHotels([...filteredHotels]); //  ver esse erro depois;
+          if(filteredHotels){
+            setHotels([...filteredHotels]); //  ver esse erro depois;
+
+          };
         }
-      } else if (!dates && selectHotel !== '' && selectHotel !== 'allHotels') {
+      } else if (!dates && selectHotel !== '' && selectHotel !== 'Todos os Hoteis') {
         if (selectedHotelInfos) {
           setHotels(selectedHotelInfos);
         }
-      } else if (selectHotel === 'allHotels') {
+      } else if (selectHotel === 'Todos os Hoteis') {
         setHotels(hotelOptions);
       } else {
         const formatedDates = dates.map((date) => date.toLocaleDateString());
