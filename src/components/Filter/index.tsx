@@ -40,19 +40,10 @@ export const Filter = () => {
           register={register('selectHotel')}
           onChange={handleHotelChange}
         />
-
-        {/* <SelectItem
-          onChange={activityTypeChange}
-          selectId='activityType'
-          selectLabel='Tipo de passeio'
-          value={selectedActivityType}
-          types={activitiesTypesArray}
-          register={register('activityType')}
-        /> */}
       </div>
 
       <DateRangePicker
-        menuAutoWidth={true}
+        // menuAutoWidth={true}
         menuStyle={{
           width: '89%',
           overflow: 'auto',

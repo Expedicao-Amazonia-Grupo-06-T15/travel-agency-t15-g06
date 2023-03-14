@@ -2,6 +2,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { createContext, useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import { api } from '../../services/api';
 import {
@@ -21,7 +22,7 @@ export const ReservationsContext = createContext<IReservationsContext>(
 export const ReservationsProvider = ({
   children,
 }: IReservationsContextProps) => {
-  const [selectedHotel, setSelectedHotel] = useState<IHotel | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<IHotel | string>('');
   const [hotels, setHotels] = useState<IHotel[] | null>(null);
   const [activities, setActivities] = useState<IActivity[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,27 +31,22 @@ export const ReservationsProvider = ({
   );
   const [selectedActivityType, setSelectedActivityType] = useState<string>('');
   const [hotelOptions, setHotelOptions] = useState<IHotel[] | null>(null);
-  const [dates, setDates] = useState(new Date());
+  const [dates, setDates] = useState<Date[] | null>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedHotel);
+    return;
   }, [selectedHotel]);
-
-  // const activityTypeChange = (e: SelectChangeEvent): void => {
-  //   setSelectedActivityType(e.target.value);
-  // };
 
   const handleHotelChange = (e: SelectChangeEvent): void => {
     if (e.target.value === 'allHotels') {
-      setSelectedHotel(null);
+      setSelectedHotel('');
     } else {
       const selectedHotel = hotelOptions?.find(
         (hotel) => hotel.name === e.target.value
       );
-      // console.log('selectedHotel:', selectedHotel);
-      setSelectedHotel(selectedHotel || null);
+      setSelectedHotel(selectedHotel || '');
     }
   };
 
@@ -96,7 +92,7 @@ export const ReservationsProvider = ({
 
   const confirmHotelReservation = async (
     e: React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  ): Promise<void> => {
     const token = localStorage.getItem('@TOKEN');
     const userIdValue = localStorage.getItem('@USERID');
     const hotelIdValue = e.currentTarget.id;
@@ -127,9 +123,7 @@ export const ReservationsProvider = ({
     setIsLoading(true);
 
     const { selectHotel } = data;
-    console.log(data);
     const objData = { selectHotel, dates };
-    console.log(objData);
     const token = localStorage.getItem('@TOKEN');
 
     try {
@@ -146,9 +140,9 @@ export const ReservationsProvider = ({
       );
 
       if (dates && (selectHotel === '' || selectHotel === 'allHotels')) {
-        console.log('primeiro if');
-
-        const formatedDates = dates.map((date) => date.toLocaleDateString());
+        const formatedDates = dates.map((date: Date) =>
+          date.toLocaleDateString()
+        );
         const unavailableHotelsById = reservedHotels.data.map((reservation) => {
           const reservedDates = Object.values(reservation.dates);
 
@@ -171,16 +165,12 @@ export const ReservationsProvider = ({
           setHotels([...filteredHotels]); //  ver esse erro depois;
         }
       } else if (!dates && selectHotel !== '' && selectHotel !== 'allHotels') {
-        console.log('segundo if');
-
         if (selectedHotelInfos) {
           setHotels(selectedHotelInfos);
         }
       } else if (selectHotel === 'allHotels') {
-        console.log('terceiro if');
         setHotels(hotelOptions);
       } else {
-        console.log('quarto if');
         const formatedDates = dates.map((date) => date.toLocaleDateString());
 
         const isHotelReservedOnSelectedDate = reservedHotels.data.find(
@@ -197,14 +187,14 @@ export const ReservationsProvider = ({
                   endDate
                 )
               ) {
-                console.log(reservation);
+                return reservation;
               }
             }
           }
         );
 
         if (isHotelReservedOnSelectedDate) {
-          console.log('Este hotel já está reservado nessas datas');
+          toast.warning('Este hotel já está reservado nessas datas');
         } else {
           if (selectedHotelInfos) {
             setHotels(selectedHotelInfos);

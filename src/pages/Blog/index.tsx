@@ -66,7 +66,6 @@ export const Blog = () => {
                   <BlogTitle>{post.title}</BlogTitle>
                   {getParagraphs(post.content)}
                   <div className='author-infos'>
-                    {/* <img src={post.authorImg} alt={post.author} /> */}
                     <span>{post.author}</span>
                     <span>{post.date}</span>
                     <span>{post.reading_time}</span>

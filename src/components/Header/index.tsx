@@ -15,13 +15,11 @@ import { UserContext } from '../../contexts/UserContext';
 
 export const Header = () => {
   const { user, userLogout } = useContext(UserContext);
-  console.log(user);
 
   return (
     <>
       {user ? (
         <HeaderContainer>
-          {/* Header dele logado MOBILE */}
           <LogoContainer>
             <img src={logo} alt='Logo' />
           </LogoContainer>
@@ -29,7 +27,6 @@ export const Header = () => {
             <img src={dropdownMenuImg} alt='' />
           </DropdownMenuContainer>
 
-          {/* Header dele logado no DESKTOP */}
           <NavContainer>
             <UlLinksContainer>
               <li>
@@ -60,7 +57,6 @@ export const Header = () => {
         </HeaderContainer>
       ) : (
         <HeaderContainer>
-          {/* Header dele logado MOBILE */}
           <LogoContainer>
             <img src={logo} alt='Logo' />
           </LogoContainer>
@@ -68,7 +64,6 @@ export const Header = () => {
             <img src={dropdownMenuImg} alt='' />
           </DropdownMenuContainer>
 
-          {/* Header dele logado no DESKTOP */}
           <NavContainer>
             <UlLinksContainer>
               <li>
