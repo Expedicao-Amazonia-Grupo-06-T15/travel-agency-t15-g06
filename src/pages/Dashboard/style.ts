@@ -9,6 +9,10 @@ export const ContentContainer = styled.div`
     font-size: 0.75rem;
     color: var(--grey-50);
     margin-bottom: 23px;
+
+    @media (min-width: 769px) {
+      font-size: 1.125rem;
+    }
   }
 `;
 
@@ -20,12 +24,21 @@ export const UserName = styled.h2`
   font-weight: 500;
   color: var(--color-primary);
   text-transform: capitalize;
+
+  @media (min-width: 769px) {
+    font-size: var(--form-1);
+  }
 `;
 
 export const NavReservations = styled.nav`
   margin: 23px 0px 39px 0px;
   display: flex;
   font-size: 0.5rem;
+
+  @media (min-width: 769px) {
+    font-size: 1rem;
+    margin-top: 59px;
+  }
 `;
 
 export const LinksList = styled.ul`
@@ -45,7 +58,7 @@ export const ReservationCart = styled.section`
 `;
 
 export const CartTitle = styled.p`
-  font-size: var(--body-4);
+  font-size: var(--body-1);
   font-weight: 700;
   width: 78.75%;
   margin: 0 auto;

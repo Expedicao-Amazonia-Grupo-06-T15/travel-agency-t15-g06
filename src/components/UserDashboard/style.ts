@@ -10,6 +10,10 @@ export const MainContainer = styled.div`
     color: var(--grey-100);
     font-family: var(--font-title);
   }
+
+  @media (min-width: 769px) {
+    margin-left: 99px;
+  }
 `;
 
 export const CardHotel = styled.div`
@@ -19,6 +23,11 @@ export const CardHotel = styled.div`
   width: 90%;
   margin: 0 auto;
   border-radius: 10px;
+
+  @media (min-width: 769px) {
+    width: 30%;
+    margin-left: 50px;
+  }
 `;
 
 export const HotelInfosReserved = styled.div`
